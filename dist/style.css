@@ -41,7 +41,18 @@ button{
 .todo.complete .text{
     text-decoration-line: line-through
 }
-
+.priority0
+{
+    background-color: lime;
+}
+.priority1
+{
+    background-color: orange;
+}
+.priority2
+{
+    background-color: red;
+}
 .todo *{
     display: grid;
     align-content: center;

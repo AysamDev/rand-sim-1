@@ -5,9 +5,9 @@ const render = function (todos) {
 
     todos.forEach(todo => {
         $("#todos").append(`
-        <div data-id=${todo._id} class="todo ${todo.complete ? 'complete' : ''}">
+        <div data-priority=${todo.priority} data-id=${todo.id} class="todo ${todo.complete ? 'complete' : ''} priority${todo.priority}">
             <i class="fas fa-check-circle"></i>
-            <span class=text>todo.text</span>
+            <span class=text>${todo.text}</span>
             <span class="delete"><i class="fas fa-trash"></i></span>
         </div>
         `)
@@ -25,18 +25,33 @@ $("#todos").on("click", ".fa-check-circle", function () {
     const id = $(this).closest(".todo").data().id
     $.ajax({
         method: "PUT",
-        url: "/todo/" + id,
-        success: todos => render(todos)
+        url: `/todo/${id}`,
+        success: todos => {
+            render(todos)
+        }
+
     })
 })
+$("#todos").on("click", function () {
+    const id = $(this).closest(".todo").data().id
+    const priorityId = $(this).closest(".todo").data().priority
+    $.ajax({
+        method: "PUT",
+        url: `/todo/${id}/${priorityId}`,
+        success: todos => {
+            render(todos)
+        }
 
+    })
+})
 $("#todos").on("click", ".fa-trash", function () {
     const id = $(this).closest(".todo").data().id
     $.ajax({
         method: "DELETE",
         url: "/todo/" + id,
-        success: todos => render(todos)
+        success: todos => {
+            render(todos)
+        }
     })
 })
-
 $.get('/todos', todos => render(todos))
