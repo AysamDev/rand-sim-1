@@ -32,7 +32,7 @@ $("#todos").on("click", ".fa-check-circle", function () {
 
     })
 })
-$("#todos").on("click", function () {
+$("#todos").on("click",".text",function () {
     const id = $(this).closest(".todo").data().id
     const priorityId = $(this).closest(".todo").data().priority
     $.ajax({
